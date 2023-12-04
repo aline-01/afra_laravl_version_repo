@@ -61,8 +61,16 @@ Route::prefix("/admin")->group(function() {
     Route::get("/logout",$admins_ctl."@logout");
     Route::get("/panel/addBlog",$admins_ctl."@addBlog");
     Route::post("/panel/addBlog",$admins_ctl."@addBlog");
+    Route::get("/panel/addBlog/modify/{id}",$admins_ctl."@edit_blog");
+    Route::post("/panel/addBlog/modify/{id}",$admins_ctl."@edit_blog");
     Route::get("/comment-opp/{opration}/{id}",$admins_ctl."@opp_comments");
     Route::get("/panel/Set prices",$admins_ctl."@set_prices");
+    Route::post("/panel/Set prices",$admins_ctl."@set_prices");
+    Route::get("/panel/{message}",$admins_ctl."@admin_panel");
+    Route::get("/panel/delete/{id}",$admins_ctl."@delete_blog");
+    Route::get("/panel/update price/{id}",$admins_ctl."@update_prices");
+    Route::post("/panel/update price/{id}",$admins_ctl."@update_prices");
+    Route::get("/panel/del_price/{id}",$admins_ctl."@del_price");
 });
 
 Route::prefix("/blog")->group(function() {
@@ -70,6 +78,7 @@ Route::prefix("/blog")->group(function() {
     Route::get("/All Blogs",$blog_ctl."@all_blogs");
     Route::get("/Blog/{title}",$blog_ctl."@single_blog");
     Route::post("/Blog/{title}",$blog_ctl."@single_blog");
+    Route::get("/prices",$blog_ctl."@show_price");
 });
 
 Route::get("/test","App\Http\Controllers\users@test");

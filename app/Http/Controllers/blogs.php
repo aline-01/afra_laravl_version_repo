@@ -23,4 +23,10 @@ class blogs extends Controller
             "comments"=>$all_comments,
         ]);
     }
+    public function show_price() {
+        $prices = DB::table("price_product_category")->get();
+        return view("blogs/price_list",[
+            "all_price_category"=>$prices,
+        ]);
+    }
 }

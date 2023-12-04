@@ -2,10 +2,39 @@
 <?php include("includes/functions.php"); ?>
 <?php 
 
+if ($message == "add_category") {
+    $functions->show_alert("دسته بندی با موفقیت اضافه شد","success");
+}
 
+if ($message == "add_proc_price") {
+    $functions->show_alert("محصول به دسته بندی اضافه شد","success");
+}
+
+if ($message == "added_weblog") {
+    $functions->show_alert("وبلاگ اضافه شد ","success");
+}
+
+if ($message == "blog updated") {
+    $functions->show_alert("وبلاگ بروز رسانی شد","success");
+}
+
+if ($message == "delete blog") {
+    $functions->show_alert("وبلاگ خذف شد","success");
+}
+
+if ($message == "update_proc_price") {
+    $functions->show_alert("قیمت به روز رسانی شد","success");
+}
+
+if ($message == "del_price") {
+    $functions->show_alert("قیمت حذف شد","success");
+}
 
 
 ?>
+<script>
+
+</script>
 <!-- we must make this code there becuse it's destroy our header in other page -->
 <link rel='stylesheet' id='bootstrap-css' href='/css/admin_panel/bootstrap.min.css' type='text/css' media='all' /> 
 
@@ -26,7 +55,7 @@
                 const SET_BTN = document.querySelector(".set_img_form")
                 console.log(SET_BTN)
                 SET_IMAGE.addEventListener("click",(add_image)=>{
-                    SET_BTN.select();
+                    SET_BTN.select();   
                     // FORM.submit();
                 },false)
                 function you_cant_chage_password() {
@@ -56,16 +85,8 @@
                                  پروفایل
                              </a>
                          </li>
-                            <li class="nav-item mb-2">
-                                <a href="#agahiman " class="nav-link  font-sm " data-toggle="tab">
-                                    <i class="fa fa-eye font-md align-middle" aria-hidden="true"></i>
-       
-                                    سفارش ها 
-       
-                                </a>
-                            </li>
-                            <li class="nav-item mb-2">
-                                <a href="#comments " class="nav-link  font-sm " data-toggle="tab">
+                         <li class="nav-item mb-2">
+                             <a href="#comments " class="nav-link  font-sm " data-toggle="tab">
                                     <i class="fa fa-eye font-md align-middle" aria-hidden="true"></i>
                                     نظرات    
 
@@ -73,27 +94,34 @@
                             </li>
 
                          <li class="nav-item mb-2">
-                             <a href="/admin/panel/addBlog" target="blank" class="nav-link active font-sm active" data-toggle="tab">
+                             <a href="/admin/panel/addBlog" target="blank" class="nav-link active font-sm active">
                                  <i class="fa fa-user-circle font-md align-middle" aria-hidden="true"></i>
                                  اضافه کردن وبلاگ
                                 </a>
-                         </li>
-                         
+                            </li>
+                            
                          <li class="nav-item mb-2">
-                             <a href="/admin/panel/Set prices" class="nav-link active font-sm active" data-toggle="tab">
+                             <a href="/admin/panel/Set prices" target="blank" class="nav-link active font-sm active">
                                  <i class="fa fa-user-circle font-md align-middle" aria-hidden="true"></i>
                                  تعیین قیمت ها 
-                            </a>
-                         </li>
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a href="#agahiman " class="nav-link  font-sm " data-toggle="tab">
+                                    <i class="fa fa-eye font-md align-middle" aria-hidden="true"></i>
+                                    مدیریت قیمت ها 
+                               </a>
+                            </li>
 
-                         <!-- <li class="nav-item mb-2">
+                         <li class="nav-item mb-2">
                              <a href="#agahi_mordealaghe " class="nav-link  font-sm " data-toggle="tab">
                                  <i class="fa fa-heart font-md align-middle" aria-hidden="true"></i>
 
-                                آگهی ها مورد علاقه ام
-
+                                 مدیریت وبلاگ ها
+                             
                              </a>
-                         </li> -->
+                         </li>
+
                          <!-- <li class="nav-item mb-2">
                              <a href="#etelate_shakhsi " class="nav-link font-sm " data-toggle="tab">
                                  <i class="fa fa-address-card font-md align-middle" aria-hidden="true"></i>
@@ -141,7 +169,7 @@
 
                                     </div>
                                     <!-- <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3 user-info"> -->
-                                        <p class="font-sm" > نام شرکت :</p>
+                                        <!-- <p class="font-sm" > نام شرکت :</p> -->
                                         <!--  <div>
                                             <p class="font-md"><?php //echo $this_user[0]->corp_name; ?></p>
                                             </div> -->
@@ -172,10 +200,10 @@
                                     </div> -->
 
                                 </div>
-                                <div class="card-footer border-0 py-3  text-center info-user-footer">
+                                <!-- <div class="card-footer border-0 py-3  text-center info-user-footer">
                                     <a href="http://localhost:2211/?page_id=29#etelate_shakhsi" style="color:  rgba(83, 49, 177, 1);, rgba(114, 48, 205, 1), rgba(150, 41, 230, 1)) !important;" class="font-md" >ویرایش اطلاعات شخصی</a>
 
-                                </div>
+                                </div> -->
 
                             </div>
 
@@ -184,7 +212,7 @@
                     </div>
 
                 </div>
-                                <div class="tab-pane fade " id="agahiman">
+                <div class="tab-pane fade " id="agahiman">
                     <div class="card border-0 agahiman">
                         <div class="card-header bg-transparent pt-0">
                          <p class="mb-0 px-2 py-1 font-md" style="background-image: linear-gradient(to right, rgba(32, 40, 119, 1), rgba(55, 46, 149, 1), rgba(83, 49, 177, 1), rgba(114, 48, 205, 1), rgba(150, 41, 230, 1)) !important;">آگهی های من</p>
@@ -194,24 +222,27 @@
                               <thead>
                               <tr class="font-md">
                                   <th> ردیف:</th>
-                                  <th> شماره سفارش:</th>
-                                  <th>تاریخ سفارش:</th>
-                                  <th> وضعیت سفارش:</th>
+                                  <th> نام محصول:</th>
+                                  <th>قیمت:</th>
+                                  <th> دسته بندی:</th>
                                   <th> مبلغ کل :</th>
-                                  <th>توسط:</th>
+                                  <!-- <th>توسط:</th> -->
                                   <th> مشاهده آگهی:</th>
                               </tr>
                               </thead>
                                 <tbody>
-                                                                                        <tr class="" style="font-size: 12px">
+                                <?php foreach($all_price_list as $list) { ?>
+                                <?php $category_for_this = DB::table("price_product_category")->where("id",$list->id)->get(); ?>
+                                <tr class="" style="font-size: 12px">
                                     <td>1</td>
-                                    <td>su-4664615386</td>
-                                    <td>۱۴۰۲-۰۶-۱۰</td>
-                                    <td class="text-success">تایید</td>
-                                    <td>رایگان</td>
-                                    <td class="text-success">پرداخت شده</td>
-                                    <td><a href="#">نمایش</a></td>
+                                    <td><?php echo $list->name ?></td>
+                                    <td><?php echo $list->price ?></td>
+                                    <td class=""><?php echo $category_for_this[0]->name; ?></td>
+                                    <td><a href="/admin/panel/update price/<?php echo $list->id ?>">بروز رسانی</a></td>
+                                    <td class="text-danger"><a href="/admin/panel/del_price">حدف</a></td>
+                                    <!-- <td class="text-success">پرداخت شده</td> -->
                                 </tr>
+                                <?php } ?>
                                                             <!-- <tr class="" style="font-size: 12px">
                                     <td>2</td>
                                     <td>su-235489534</td>
@@ -314,37 +345,102 @@
 
                 </div>
                 <div class="tab-pane fade   " id="agahi_mordealaghe">
-                    <div class="card border-0 agahi_mordealaghe">
+                                
+                <div class="card border-0 agahi_mordealaghe">
                         <div class="card-header bg-transparent border-0 pt-0">
-                        <p class="mb-0 px-2 py-1 font-md">آگهی های مورد علاقه ام</p>
+                        <p class="mb-0 px-2 py-1 font-md">وبلاگ ها</p>
                         </div>
-                                                <div class="card-body">
-                                                                                <a href="http://localhost:2211/?page_id=62&id=6">
+                            <?php foreach($all_blogs as $blogs) { ?>
+                                <div class="card-body">
+                                <a href="/admin/panel/addBlog/modify/<?php echo $blogs->id ?>">
                                 <div class="d-flex justify-content-between align-items-center border-bottom py-2 info-user2">
                                     <div class="d-flex align-items-center">
-                                        <img src="http://localhost:2211/wp-content/themes/suiet%20v2/suiet%20v2/images/adver-img/test_suiet9.jpg" alt="agahi_mordealaghe" class="img-fluid ml-lg-2" style="border-radius: 15px; width: 10em">
+                                        <img src="/<?php echo $blogs->picture ?>" alt="agahi_mordealaghe" class="img-fluid ml-lg-2" style="border-radius: 15px; width: 10em">
                                         <div>
-                                            <small class="d-block text-center text-dark">تهران</small>
-                                            <small class="d-block text-danger py-2">خونه ویلایی دربست یک طبقه ۲۶۲متر</small>
-                                            <small class="d-block text-success py-2">خریدوفروش خانه و آپارتمان</small>
-                                            <small class="d-block text-muted py-2"><i class="fa fa-map-marker" aria-hidden="true"></i>
-                                                دقایقی پیش در اصفهان، بهرام‌آباد                                            </small>
+                                            <small class="d-block text-center text-dark"><?Php echo $blogs->title ?></small>
+                                            <small class="d-block text-muted py-2"><?php echo $blogs->send_time ?></small>
                                         </div>
 
                                     </div>
                                     <div>
-                                        <a href="https://suiet.com/%d8%aa%d8%a8%d9%84%db%8c%d8%ba%d8%a7%d8%aa-%d8%b1%d8%a7-%d8%ad%d8%b0%d9%81-%da%a9%d9%86%db%8c%d8%af/?adver_id=6" class="trash"><i class="fa fa-trash align-middle" aria-hidden="true"></i>
+                                      <a href="/admin/panel/delete/<?php echo $blogs->id; ?>" class="trash"><i class="fa fa-trash align-middle" aria-hidden="true"></i>
                                         </a>
                                     </div>
 
                                 </div>
                             </a>
-                                                </div>
-                        <div class="card-footer text-center border-0 info-user-footer">
+                        </div>
+                        <?php } ?>
+                        <!-- <div class="card-footer text-center border-0 info-user-footer">
                             <a href="#" class="font-md" >حذف و ویرایش علاقه مندی ها</a>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
+                <div class="tab-pane fade " id="agahiman">
+                    <div class="card border-0 agahiman">
+                        <div class="card-header bg-transparent pt-0">
+                         <p class="mb-0 px-2 py-1 font-md" style="background-image: linear-gradient(to right, rgba(32, 40, 119, 1), rgba(55, 46, 149, 1), rgba(83, 49, 177, 1), rgba(114, 48, 205, 1), rgba(150, 41, 230, 1)) !important;">آگهی های من</p>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-borderless table-striped text-center table-responsive-md">
+                              <thead>
+                              <tr class="font-md">
+                                  <th> ردیف:</th>
+                                  <th> شماره سفارش:</th>
+                                  <th>تاریخ سفارش:</th>
+                                  <th> وضعیت سفارش:</th>
+                                  <th> مبلغ کل :</th>
+                                  <th>توسط:</th>
+                                  <th> مشاهده آگهی:</th>
+                              </tr>
+                              </thead>
+                                <tbody>
+                                                                                        <tr class="" style="font-size: 12px">
+                                    <td>1</td>
+                                    <td>su-4664615386</td>
+                                    <td>۱۴۰۲-۰۶-۱۰</td>
+                                    <td class="text-success">تایید</td>
+                                    <td>رایگان</td>
+                                    <td class="text-success">پرداخت شده</td>
+                                    <td><a href="#">نمایش</a></td>
+                                </tr>
+                                                            <!-- <tr class="" style="font-size: 12px">
+                                    <td>2</td>
+                                    <td>su-235489534</td>
+                                    <td>20تیر1401</td>
+                                    <td class="text-warning">درحال بررسی</td>
+                                    <td>20هزارتومان</td>
+                                    <td class="text-success">پرداخت شده</td>
+                                    <td><a href="#">نمایش</a></td>
+                                </tr>
+                                <tr class="" style="font-size: 12px">
+                                    <td>3</td>
+                                    <td>su-235489534</td>
+                                    <td>20تیر1401</td>
+                                    <td class="text-danger">تایید نشد</td>
+                                    <td>20هزارتومان</td>
+                                    <td class="text-danger">پرداخت نشده</td>
+                                    <td><a href="#">نمایش</a></td>
+                                </tr>
+                                <tr class="" style="font-size: 12px">
+                                    <td>4</td>
+                                    <td>su-235489534</td>
+                                    <td>20تیر1401</td>
+                                    <td class="text-danger">  تایید نشد</td>
+                                    <td>20هزارتومان</td>
+                                    <td class="text-danger">پرداخت نشده</td>
+                                    <td><a href="#">نمایش</a></td>
+                                </tr> -->
+                                </tbody>
+
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+    
                 <!-- ---------------------------------------------------------------------------------------- -->
                 <div class="tab-pane fade   " id="etelate_shakhsi">
                       <div class="card border-0 etelate_shakhsi">

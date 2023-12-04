@@ -40,9 +40,13 @@ class functions {
         return $hashed_password;
 
     }
-    public function show_alert($text) {
+    public function show_alert($text,$type="text") {
         echo "<script>";
+        if ($type == "text") {
             echo "Swal.fire('{$text}')";
+        } else if ($type == "success") {
+            echo "Swal.fire('{$text}', '', 'success')";
+        }
         echo "</script>";
     }
     public function check_img_format($img) {

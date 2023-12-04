@@ -82,7 +82,7 @@ $users_cookie = Cookie::get("users_access");
                         <a class="nav-link page-scroll" href="#features">امکانات</a>
                     </li> -->
                     <li class="nav-item">
-                        <a class="nav-link page-scroll" href="/pages/blog/price_list.php">قیمت ها</a>
+                        <a class="nav-link page-scroll" href="/blog/prices">قیمت ها</a>
                     </li>
                     <?php if (empty($users_cookie)) { ?>
                     <li class="nav-item">

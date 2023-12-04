@@ -23,8 +23,8 @@ if (isset($_POST["submit"])) {
     if ($check_image == false) {
         array_push($errors,"لطفا یک تصویر معتبر وارد کنید");
     }
-
     $content = $functions->safe_input($_POST["content"]);
+
     if (empty($content)) {
         array_push($errors,"لطفا محتوای وبلاگ را بنویسید");
     }
@@ -48,16 +48,66 @@ if (isset($_POST["submit"])) {
             "writer"=>$writer,
             "send_time"=>$send_time,
         ]);
-        $is_moved = move_uploaded_file($picture["tmp_name"],$up_picture);
-        if ($is_moved) {
-            $functions->header_to_js("/admin/panel");
-        }else {
-            array_push($errors,"قادر به بارگذاری تصویر نیست دوباره امتحان کنید");
+        if ($upload_file_lock) {
+            $is_moved = move_uploaded_file($picture["tmp_name"],$up_picture);
+            if ($is_moved) {
+                $functions->header_to_js("/admin/panel/added_weblog");
+            }else {
+                array_push($errors,"قادر به بارگذاری تصویر نیست دوباره امتحان کنید");
+            }
         }
     }
 
+}
 
+if (isset($_POST["update"])) {
+    $errors = array();
+    
+    $title = $functions->safe_input($_POST["title"]);
+    if (empty($title)) {
+        array_push($errors,"عنوان را وارد کنید");
+    }else if (strlen($title) > 30) {
+        array_push($errors,"عنوان بیش از حد طولانی است");
+    } else if (strlen($title) < 3) {
+        array_push($errors,"عنوان کوتاه است");
+    }
 
+    $picture = $_FILES["picture"];
+    $up_picture = "img/blog/".$picture["name"];
+    $check_image = $functions->check_img_format($picture["name"]);
+    $upload_file_lock = false;
+    if ($picture["error"] != 0) {
+        $up_picture = $old_picture;
+    }else {
+        $upload_file_lock = true;
+        if ($check_image == false) {
+            array_push($errors,"لطفا یک تصویر معتبر وارد کنید");
+        }
+    }
+
+    $content = $functions->safe_input($_POST["content"]);
+    if (empty($content)) {
+        array_push($errors,"لطفا محتوای وبلاگ را بنویسید");
+    }
+    
+    $category = $functions->safe_input($_POST["category"]);
+    if (empty($category)) {
+        $category = "not_set";
+    }
+
+    if (empty($errors)) {
+        $update_blog = DB::table("blogs")->where("id",$this_blog[0]->id)->update([
+            "title"=>$title,
+            "content"=>$content,
+            "picture"=>$up_picture,
+            "category"=>$category,
+        ]);
+        if ($upload_file_lock) {
+            move_uploaded_file($picture["tmp_name"],$up_picture);
+        }
+        $functions->header_to_js("/admin/panel/blog updated");
+
+    }
 
 }
 
@@ -90,7 +140,7 @@ if (isset($_POST["submit"])) {
                             <div class="row">
                                 <div class="form-group col-12 col-lg-12">
                                     <p>عنوان:</p>
-                                    <input style="text-align: right;" name="title" type="tel" class="form-control address_h" placeholder="عنوان:" name="address_h">
+                                    <input style="text-align: right;" value="<?php echo $title ?>" name="title" type="tel" class="form-control address_h" placeholder="عنوان:" name="address_h">
                                 </div>
                             </div>
                             <div class="form-group e col-12 col-lg-12">
@@ -113,15 +163,15 @@ if (isset($_POST["submit"])) {
                                 <div class="form-group col-12">
                                     <p>محتوا :</p>
                                     <textarea name="content" class="form-control w-100 d-block description" cols="50" rows="10"
-                                    style="resize: none;"></textarea>      
+                                    style="resize: none;"><?php echo $content ?></textarea>      
                             <div class="row">
                                 <div class="form-group col-12 col-lg-12">
                                     <p>دسته بندی:</p>
-                                    <input style="text-align: right;" name="category" type="tel" class="form-control address_h" placeholder="مثال:آهن اخبار بازار " name="address_h">
+                                    <input style="text-align: right;" value="<?php echo $category; ?>" name="category" type="tel" class="form-control address_h" placeholder="مثال:آهن اخبار بازار " name="address_h">
                                 </div>
                             </div>
     
-                            <?php if (isset($_POST["submit"]) && !empty($errors)) { ?>
+                            <?php if (isset($_POST["submit"]) || isset($_POST["update"]) && !empty($errors)) { ?>
                             <div class="errors d-flex align-items-center justify-content-center">
                                 <ul>
                                     <?php foreach($errors as $err) { ?>
@@ -130,9 +180,15 @@ if (isset($_POST["submit"])) {
                                 </ul>
                             </div>
                             <?php } ?>
-                            <div class="send  text-center "><br>
-                                <input type="submit" name="submit" style="background-image: linear-gradient(to right, rgba(32, 40, 119, 1), rgba(55, 46, 149, 1), rgba(83, 49, 177, 1), rgba(114, 48, 205, 1), rgba(150, 41, 230, 1));color:white;border-color:white; !important;" class="btn px-5 hvr-push btn-outline-success submit-btn" value="ارسال وبلاگ">
-                            </div>
+                            <?php if (isset($this_blog)) { ?>
+                                <div class="send  text-center"><br>
+                                    <input type="submit" name="update" style="background-image: linear-gradient(to right, rgba(32, 40, 119, 1), rgba(55, 46, 149, 1), rgba(83, 49, 177, 1), rgba(114, 48, 205, 1), rgba(150, 41, 230, 1));color:white;border-color:white; !important;" class="btn px-5 hvr-push btn-outline-success submit-btn" value="به روز رسانی">
+                                </div>        
+                            <?php }else { ?>    
+                                <div class="send  text-center "><br>
+                                    <input type="submit" name="submit" style="background-image: linear-gradient(to right, rgba(32, 40, 119, 1), rgba(55, 46, 149, 1), rgba(83, 49, 177, 1), rgba(114, 48, 205, 1), rgba(150, 41, 230, 1));color:white;border-color:white; !important;" class="btn px-5 hvr-push btn-outline-success submit-btn" value="ارسال وبلاگ">
+                                </div>
+                            <?php } ?>
                         </div>
                 </div>
 

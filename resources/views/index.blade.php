@@ -493,15 +493,15 @@ margin: 0 0 20px
                 </div>
             </div>
             <div class="row justify-content-center">
-            <?php $all_prices = DB::table("price_product_category")->get(); ?>    
+            <?php $all_prices = DB::table("price_product_category")->take(6)->get(); ?>    
             <?php foreach($all_prices as $price) { ?>
-            <?php $price_list = $functions->prices_for_category($price["id"]);?>
+            <?php $price_list = DB::table("price_product_proc")->where("category_id",$price->id)->get();?>
             <div class="col-md-4 col-sm-8">
             <div class="pricingTable blue">
-                <div class="pricingTable-header" style="border-radius:0;background-image:url(<?php echo $price["picture"]; ?>);  background-size: 100% 100%;">
+                <div class="pricingTable-header" style="border-radius:0;background-image:url(<?php echo $price->picture; ?>);  background-size: 100% 100%;">
                 <div class="price-value"> $30.00 <span class="month">per month</span> </div>
                 </div>
-                <h3 class="heading"><?php echo $price["name"] ?></h3>
+                <h3 class="heading"><?php echo $price->name ?></h3>
                 <div class="pricing-content">
             <table class="table price_table">
             <thead>
@@ -513,8 +513,8 @@ margin: 0 0 20px
         <tbody>
           <tr>
             <?php foreach ($price_list as $list) { ?>
-            <td><?php echo $list["name"]; ?></td>
-            <td><?php echo $list["price"]; ?></td>
+            <td><?php echo $list->name; ?></td>
+            <td><?php echo $list->price; ?></td>
           </tr>
           <?php } ?>
           <!-- <tr>

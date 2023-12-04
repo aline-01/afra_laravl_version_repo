@@ -293,7 +293,18 @@
                                                   <input type="text" value="09197508922" name="new_number" class="form-control " style="font-size: 13px" value="09131234567">
                                               </div>
                                           </div>
-                                                                                    <div class="form-group col-12 col-lg-6">
+                                          <div class="form-group col-12 col-lg-6">
+                                              <div class="input-group">
+                                                  <div class="input-group-prepend">
+                                                      <div class="input-group-text bg-white ">
+                                                          <small class="text-muted font-md">نام شرکت:</small>
+                                                      </div>
+                                                  </div>
+                                                  <input type="text" value="09197508922" name="new_number" class="form-control " style="font-size: 13px" value="09131234567">
+                                              </div>
+                                          </div>
+
+                                    <div class="form-group col-12 col-lg-6">
                                               <div class="input-group">
                                                   <div class="input-group-prepend">
                                                       <div class="input-group-text bg-white ">
